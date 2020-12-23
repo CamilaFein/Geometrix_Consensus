@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ConsensusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Figuras">
+          <Key>
+            <PropertyRef Name="ID_Figura" />
+          </Key>
+          <Property Name="ID_Figura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IT_Produccion">
+          <Key>
+            <PropertyRef Name="ID_IT_Produccion" />
+          </Key>
+          <Property Name="ID_IT_Produccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Produccion" Type="int" Nullable="false" />
+          <Property Name="ID_Figura" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Total_Costo" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produccion">
+          <Key>
+            <PropertyRef Name="ID_Produccion" />
+          </Key>
+          <Property Name="ID_Produccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Precio_Total" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Total_Costo" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Ganancia" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sets">
+          <Key>
+            <PropertyRef Name="ID_Set" />
+          </Key>
+          <Property Name="ID_Set" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sets_Figuras">
+          <Key>
+            <PropertyRef Name="ID_Figura" />
+            <PropertyRef Name="ID_Set" />
+          </Key>
+          <Property Name="ID_Figura" Type="int" Nullable="false" />
+          <Property Name="ID_Set" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Precio_Set" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__IT_Produc__ID_Fi__4222D4EF">
+          <End Role="Figuras" Type="Self.Figuras" Multiplicity="1" />
+          <End Role="IT_Produccion" Type="Self.IT_Produccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Figuras">
+              <PropertyRef Name="ID_Figura" />
+            </Principal>
+            <Dependent Role="IT_Produccion">
+              <PropertyRef Name="ID_Figura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IT_Produc__ID_Pr__412EB0B6">
+          <End Role="Produccion" Type="Self.Produccion" Multiplicity="1" />
+          <End Role="IT_Produccion" Type="Self.IT_Produccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produccion">
+              <PropertyRef Name="ID_Produccion" />
+            </Principal>
+            <Dependent Role="IT_Produccion">
+              <PropertyRef Name="ID_Produccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ConsensusModelStoreContainer">
+          <EntitySet Name="Figuras" EntityType="Self.Figuras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IT_Produccion" EntityType="Self.IT_Produccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produccion" EntityType="Self.Produccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sets" EntityType="Self.Sets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sets_Figuras" EntityType="Self.Sets_Figuras" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__IT_Produc__ID_Fi__4222D4EF" Association="Self.FK__IT_Produc__ID_Fi__4222D4EF">
+            <End Role="Figuras" EntitySet="Figuras" />
+            <End Role="IT_Produccion" EntitySet="IT_Produccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IT_Produc__ID_Pr__412EB0B6" Association="Self.FK__IT_Produc__ID_Pr__412EB0B6">
+            <End Role="Produccion" EntitySet="Produccion" />
+            <End Role="IT_Produccion" EntitySet="IT_Produccion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ConsensusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Figuras">
+          <Key>
+            <PropertyRef Name="ID_Figura" />
+          </Key>
+          <Property Name="ID_Figura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="IT_Produccion" Relationship="Self.FK__IT_Produc__ID_Fi__4222D4EF" FromRole="Figuras" ToRole="IT_Produccion" />
+        </EntityType>
+        <EntityType Name="IT_Produccion">
+          <Key>
+            <PropertyRef Name="ID_IT_Produccion" />
+          </Key>
+          <Property Name="ID_IT_Produccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Produccion" Type="Int32" Nullable="false" />
+          <Property Name="ID_Figura" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Total_Costo" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Figuras" Relationship="Self.FK__IT_Produc__ID_Fi__4222D4EF" FromRole="IT_Produccion" ToRole="Figuras" />
+          <NavigationProperty Name="Produccion" Relationship="Self.FK__IT_Produc__ID_Pr__412EB0B6" FromRole="IT_Produccion" ToRole="Produccion" />
+        </EntityType>
+        <EntityType Name="Produccion">
+          <Key>
+            <PropertyRef Name="ID_Produccion" />
+          </Key>
+          <Property Name="ID_Produccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Precio_Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Total_Costo" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Ganancia" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="IT_Produccion" Relationship="Self.FK__IT_Produc__ID_Pr__412EB0B6" FromRole="Produccion" ToRole="IT_Produccion" />
+        </EntityType>
+        <EntityType Name="Sets">
+          <Key>
+            <PropertyRef Name="ID_Set" />
+          </Key>
+          <Property Name="ID_Set" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Sets_Figuras">
+          <Key>
+            <PropertyRef Name="ID_Figura" />
+            <PropertyRef Name="ID_Set" />
+          </Key>
+          <Property Name="ID_Figura" Type="Int32" Nullable="false" />
+          <Property Name="ID_Set" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Precio_Set" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__IT_Produc__ID_Fi__4222D4EF">
+          <End Role="Figuras" Type="Self.Figuras" Multiplicity="1" />
+          <End Role="IT_Produccion" Type="Self.IT_Produccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Figuras">
+              <PropertyRef Name="ID_Figura" />
+            </Principal>
+            <Dependent Role="IT_Produccion">
+              <PropertyRef Name="ID_Figura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IT_Produc__ID_Pr__412EB0B6">
+          <End Role="Produccion" Type="Self.Produccion" Multiplicity="1" />
+          <End Role="IT_Produccion" Type="Self.IT_Produccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produccion">
+              <PropertyRef Name="ID_Produccion" />
+            </Principal>
+            <Dependent Role="IT_Produccion">
+              <PropertyRef Name="ID_Produccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ConsensusEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Figuras" EntityType="Self.Figuras" />
+          <EntitySet Name="IT_Produccion" EntityType="Self.IT_Produccion" />
+          <EntitySet Name="Produccion" EntityType="Self.Produccion" />
+          <EntitySet Name="Sets" EntityType="Self.Sets" />
+          <EntitySet Name="Sets_Figuras" EntityType="Self.Sets_Figuras" />
+          <AssociationSet Name="FK__IT_Produc__ID_Fi__4222D4EF" Association="Self.FK__IT_Produc__ID_Fi__4222D4EF">
+            <End Role="Figuras" EntitySet="Figuras" />
+            <End Role="IT_Produccion" EntitySet="IT_Produccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IT_Produc__ID_Pr__412EB0B6" Association="Self.FK__IT_Produc__ID_Pr__412EB0B6">
+            <End Role="Produccion" EntitySet="Produccion" />
+            <End Role="IT_Produccion" EntitySet="IT_Produccion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ConsensusModelStoreContainer" CdmEntityContainer="ConsensusEntities">
+          <EntitySetMapping Name="Figuras">
+            <EntityTypeMapping TypeName="ConsensusModel.Figuras">
+              <MappingFragment StoreEntitySet="Figuras">
+                <ScalarProperty Name="ID_Figura" ColumnName="ID_Figura" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IT_Produccion">
+            <EntityTypeMapping TypeName="ConsensusModel.IT_Produccion">
+              <MappingFragment StoreEntitySet="IT_Produccion">
+                <ScalarProperty Name="ID_IT_Produccion" ColumnName="ID_IT_Produccion" />
+                <ScalarProperty Name="ID_Produccion" ColumnName="ID_Produccion" />
+                <ScalarProperty Name="ID_Figura" ColumnName="ID_Figura" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Total_Costo" ColumnName="Total_Costo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produccion">
+            <EntityTypeMapping TypeName="ConsensusModel.Produccion">
+              <MappingFragment StoreEntitySet="Produccion">
+                <ScalarProperty Name="ID_Produccion" ColumnName="ID_Produccion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Precio_Total" ColumnName="Precio_Total" />
+                <ScalarProperty Name="Total_Costo" ColumnName="Total_Costo" />
+                <ScalarProperty Name="Ganancia" ColumnName="Ganancia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sets">
+            <EntityTypeMapping TypeName="ConsensusModel.Sets">
+              <MappingFragment StoreEntitySet="Sets">
+                <ScalarProperty Name="ID_Set" ColumnName="ID_Set" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sets_Figuras">
+            <EntityTypeMapping TypeName="ConsensusModel.Sets_Figuras">
+              <MappingFragment StoreEntitySet="Sets_Figuras">
+                <ScalarProperty Name="ID_Figura" ColumnName="ID_Figura" />
+                <ScalarProperty Name="ID_Set" ColumnName="ID_Set" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Precio_Set" ColumnName="Precio_Set" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
