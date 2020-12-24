@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="86176ed4-32e4-4291-87c6-0486a0b76506" ChangeDateTime="12/23/2020 23:55:21">
+    <Property Name="ElementName" Value="[dbo].[Figuras].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Figuras]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID_Figura" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7e81c4af-9daa-4e63-b479-d136615f8776" ChangeDateTime="12/23/2020 23:56:29">
+    <Property Name="ElementName" Value="[dbo].[Sets].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Sets]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID_Set" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0f4d4ebd-d66e-42ce-9aab-c58fe16c111d" ChangeDateTime="12/24/2020 00:01:15">
+    <Property Name="ElementName" Value="[dbo].[FK_IT_Produccion_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[IT_Produccion]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_IT_Produccion_ID_Produccion]" />
+  </Operation>
+</Operations>
