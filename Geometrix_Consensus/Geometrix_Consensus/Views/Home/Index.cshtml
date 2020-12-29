@@ -1,31 +1,60 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Pagina de Inicio";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="text-center m-t-lg">
+                <img alt="image" class="img-rounded" src="~/Images/logo.png" style=" height: 250px; width: 300px; " />
+            </div>
+            <div class="text-center m-t-lg">
+                <h1>
+                    @ViewData["SubTitle"]
+                </h1>
+                <small>@ViewData["Message"]</small>
+                <br />
+                <small>@ViewData["Fecha"]</small>
+                <br>
+                <small>Version  : @ViewData["Version"]</small>
+                <br>
+            </div>
+        </div>
+        <div class="col-lg-12" style=" margin-top: 20px; margin-bottom: 10px;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Acciones</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6  col-md-6  col-sm-12" style="margin-bottom: 15px;">
+                            <a href="@Url.Action("Index", "Production")" class="btn btn-success btn-lg btn-block" role="button" aria-pressed="true">
+                                <div class="row">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+                                    <div class="col-lg-12 text-right">
+                                        <span style=" font-size: 12px;"> Acceso Directo </span>
+                                        <h4 class="font-bold  text-center" style=" font-size: 19px !important; margin-bottom: 20px;">GENERAR PRODUCCION</h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-6  col-md-6  col-sm-12" style="margin-bottom: 15px;">
+                            <a href="@Url.Action("Index", "Informe")" class="btn btn-success btn-lg btn-block" role="button" aria-pressed="true">
+
+                                <div class="row">
+
+                                    <div class="col-lg-12 text-right">
+                                        <span style=" font-size: 12px;"> Acceso Directo </span>
+                                        <h4 class="font-bold  text-center" style=" font-size: 19px !important; margin-bottom: 20px;">PRODUCCION DIARIA</h4>
+                                    </div>
+                                </div>
+
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

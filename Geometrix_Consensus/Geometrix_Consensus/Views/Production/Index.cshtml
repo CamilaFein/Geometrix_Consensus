@@ -1,0 +1,93 @@
+﻿@model IList<Geometrix_Consensus.Views.Models.Figuras>
+@{
+    ViewBag.Title = "Generar Produccion";
+}
+<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12"  style="margin-bottom:20px;">
+            <div class="text-center m-t-lg">
+                <h1 style="    font-size: 60px;">
+                    @ViewData["SubTitle"]
+                </h1>        
+            </div>
+        </div>
+        <div class="col-xl-12" style="margin-bottom:15px;">
+           
+        </div>
+        <div class="col-xl-12">
+            @using (Html.BeginForm("AddProduction", "Production", new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="card" style="margin-bottom:15px;">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class=" col-lg-6">
+                                <h5 style="  margin-top: 7px;">Ingrese los datos Correspondientes</h5>
+                            </div>
+                            <div class=" col-lg-6" style="text-align:right;">
+                                <a href="@Url.Action("Index", "Home")"><div class="btn btn-primary">Volver</div> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="example-date-input" class="col-12 col-form-label">Fecha:</label>
+                            <div class="col-12">
+                                <input class="form-control" type="date" value="" id="example-date-input" name="example-date-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class=" col-lg-6">
+                                <h5 style="  margin-top: 7px;">Elegir Cantidades</h5>
+                            </div>
+                            <div class=" col-lg-6" style="text-align:right;">
+                                <button type="submit" class="btn btn-primary btn-xl" style=" text-align:right;">
+                                    Crear
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Cantidad</th>
+                                    @*<th scope="col">Handle</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < Model.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => Model[i].ID)
+                                            @Html.HiddenFor(modelItem => Model[i].ID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => Model[i].Descripcion)
+                                            @Html.HiddenFor(modelItem => Model[i].Descripcion)
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(modelItem => Model[i].cantidad, new { @type = "number", @max = "999999", @min = "0", @maxlength = "6" })
+                                            @Html.ValidationMessageFor(modelItem => Model[i].cantidad)
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

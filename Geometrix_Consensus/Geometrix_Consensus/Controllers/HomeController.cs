@@ -10,6 +10,11 @@ namespace Geometrix_Consensus.Controllers
     {
         public ActionResult Index()
         {
+            ViewData["SubTitle"] = "Bienvenidos al Sistema de Produccion";
+            ViewData["Message"] = "En esta aplicacion usted podra ingresar la produccion diaria y consultar los informes de Produccion";
+            ViewData["Fecha"] = DateTime.Now;
+            ViewData["Version"] = "20201228V2";
+
             return View();
         }
 
