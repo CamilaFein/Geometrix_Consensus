@@ -12,6 +12,8 @@ namespace Geometrix_API.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ConsensusEntities : DbContext
     {
@@ -30,5 +32,14 @@ namespace Geometrix_API.Models
         public virtual DbSet<Produccion> Produccion { get; set; }
         public virtual DbSet<Sets> Sets { get; set; }
         public virtual DbSet<Sets_Figuras> Sets_Figuras { get; set; }
+    
+        public virtual ObjectResult<Detalle_Sets_Result> Detalle_Sets(Nullable<System.DateTime> fecha)
+        {
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("Fecha", fecha) :
+                new ObjectParameter("Fecha", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Detalle_Sets_Result>("Detalle_Sets", fechaParameter);
+        }
     }
 }

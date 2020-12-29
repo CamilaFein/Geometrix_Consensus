@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using static Geometrix_API.Estructuras.HelperDTO;
+using System.Data.Entity.Core.Objects;
 
 namespace Geometrix_API.Repositorios
 {
@@ -13,12 +14,16 @@ namespace Geometrix_API.Repositorios
         ConsensusEntities db = new ConsensusEntities();
         public IQueryable<Produccion> GetAll()
         {
-            ConsensusEntities db = new ConsensusEntities();
             IQueryable<Produccion> lista = from p in db.Produccion
                                         select p;
             return lista;
         }
-        public List<Sets_Figuras> Create_Sets(DateTime fecha, List<Cantidades_Figura> cantidadesFigura)
+        public Produccion GetByDate(DateTime fecha)
+        {
+            Produccion produccion = db.Produccion.FirstOrDefault(x => x.Fecha == fecha);
+            return produccion;
+        }
+        public void Create_Sets(DateTime fecha, List<Cantidades_Figura> cantidadesFigura)
         {
             try
             {
@@ -44,7 +49,6 @@ namespace Geometrix_API.Repositorios
                     db.SaveChanges();
                     for (i = 0; i <= 4; i++)
                     {
-                        item = new Sets_Figuras();
                         ID_Figura = random.Next(IDs_Figuras.Min(), IDs_Figuras.Max());
                         figura = repositorio.SingleID(ID_Figura);
                         if (figura != null)
@@ -57,11 +61,24 @@ namespace Geometrix_API.Repositorios
                             }
                             else
                             {
+                                item = lista.FirstOrDefault(x => x.ID_Figura == ID_Figura && x.ID_Set == set.ID_Set);
+                                if (item != null)
+                                {
+                                    item.Cantidad = item.Cantidad + Cantidad;
+                                    item.Precio_Set = item.Cantidad * figura.Precio;
+                                    lista.Where(x => x.ID_Figura == ID_Figura && x.ID_Set == set.ID_Set).ToList().ForEach(x => x.Cantidad = item.Cantidad);
+                                }
+                                else
+                                {
+                                    item = new Sets_Figuras();
+                                    item.ID_Set = set.ID_Set;
+                                    item.ID_Figura = ID_Figura;
+                                    item.Cantidad = Cantidad;
+                                    item.Precio_Set = Cantidad * figura.Precio;
+                                    lista.Add(item);
+                                }
                                 cantidadesFigura.Where(x => x.ID_Figura == ID_Figura).ToList().ForEach(s => s.Cantidad = (s.Cantidad - Cantidad));
-                                item.ID_Set = set.ID_Set;
-                                item.ID_Figura = ID_Figura;
-                                item.Cantidad = Cantidad;
-                                item.Precio_Set = Cantidad * figura.Precio;
+                                db.SaveChanges();
                                 i += Cantidad;
                             }
                         }
@@ -70,13 +87,7 @@ namespace Geometrix_API.Repositorios
                             break;
                         }
                     }
-                    if (item != null)
-                    {
-                        lista.Add(item);
-                    }
-                    db.SaveChanges();
                 }
-                return lista;
             }
             catch
             {
@@ -106,6 +117,29 @@ namespace Geometrix_API.Repositorios
                     }
                 }
                 db.SaveChanges();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<Detalle_Sets> Obtener_Produccion(DateTime fecha)
+        {
+            try
+            {
+               return db.Detalle_Sets(fecha).Select(x => new Detalle_Sets() { 
+                   ID_Set = x.ID_Set,
+                   Cuadrado = x.Cuadrado,
+                   Circulo = x.Circulo,
+                   Rectangulo = x.Rectangulo,
+                   Triangulo = x.Triangulo,
+                   Valorizado_Circulo = x.Valorizado_Circulo,
+                   Valorizado_Cuadrado = x.Valorizado_Cuadrado,
+                   Valorizado_Rectangulo = x.Valorizado_Rectangulo,
+                   Valorizado_Triangulo = x.Valorizado_Triangulo,
+                   Total_Set = x.Total_Set
+               }).ToList();
             }
             catch
             {

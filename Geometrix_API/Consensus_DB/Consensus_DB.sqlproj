@@ -63,6 +63,7 @@
     <Build Include="Produccion.sql" />
     <Build Include="IT_Produccion.sql" />
     <Build Include="Sets_Figuras.sql" />
+    <Build Include="Detalle_Sets.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Consensus_DB.refactorlog" />

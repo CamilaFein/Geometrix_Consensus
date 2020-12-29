@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ConsensusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ConsensusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Figuras">
           <Key>
             <PropertyRef Name="ID_Figura" />
@@ -74,6 +74,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Detalle_Sets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="ConsensusModelStoreContainer">
           <EntitySet Name="Figuras" EntityType="Self.Figuras" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IT_Produccion" EntityType="Self.IT_Produccion" Schema="dbo" store:Type="Tables" />
@@ -89,8 +92,7 @@
             <End Role="IT_Produccion" EntitySet="IT_Produccion" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ConsensusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -181,7 +183,22 @@
             <End Role="Produccion" EntitySet="Produccion" />
             <End Role="IT_Produccion" EntitySet="IT_Produccion" />
           </AssociationSet>
+          <FunctionImport Name="Detalle_Sets" ReturnType="Collection(ConsensusModel.Detalle_Sets_Result)">
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="Detalle_Sets_Result" >
+          <Property Type="Int32" Name="ID_Set" Nullable="false" />
+          <Property Type="Int32" Name="Cuadrado" Nullable="false" />
+          <Property Type="Int32" Name="Circulo" Nullable="false" />
+          <Property Type="Int32" Name="Rectangulo" Nullable="false" />
+          <Property Type="Int32" Name="Triangulo" Nullable="false" />
+          <Property Type="Decimal" Name="Valorizado_Cuadrado" Nullable="false" />
+          <Property Type="Decimal" Name="Valorizado_Circulo" Nullable="false" />
+          <Property Type="Decimal" Name="Valorizado_Rectangulo" Nullable="false" />
+          <Property Type="Decimal" Name="Valorizado_Triangulo" Nullable="false" />
+          <Property Type="Decimal" Name="Total_Set" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -237,6 +254,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Detalle_Sets" FunctionName="ConsensusModel.Store.Detalle_Sets">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ConsensusModel.Detalle_Sets_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

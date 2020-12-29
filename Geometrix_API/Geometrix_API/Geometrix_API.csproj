@@ -170,6 +170,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Detalle_Sets_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Figuras.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -203,6 +206,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\RepositorioFiguras.cs" />
     <Compile Include="Repositorios\RepositorioProduccion.cs" />
+    <Compile Include="Repositorios\RepositorioSets.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Geometrix_API/Consensus_DB/Consensus_DB.jfm
+/Geometrix_API/Consensus_DB/Consensus_DB.dbmdl
